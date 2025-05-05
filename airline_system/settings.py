@@ -57,8 +57,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://localhost:5174",# порт зависит от твоего Vite сервера
+    "https://your-frontend.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

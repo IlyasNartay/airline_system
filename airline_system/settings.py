@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -150,3 +151,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'  # Or '/dashboard/', or whatever page logged-in users should see first
 LOGOUT_REDIRECT_URL = '/' # Or '/goodbye/', or wherever users should go after logout
 LOGIN_URL = 'login'       # The name of the login URL pattern (used by @login_required)
+
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')

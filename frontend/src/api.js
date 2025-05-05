@@ -65,13 +65,6 @@ export const bookFlight = async (email, name, flightId) => {
   })
   return res.data
 }
-
-
-export const getBookingConfirmation = async (bookingCode) => {
-  const res = await apiClient.get(`booking/${bookingCode}/`)
-  return res.data
-}
-
 export const manageBooking = async (bookingCode) => {
   const res = await apiClient.post('manage-booking/', { booking_code: bookingCode })
   return res.data

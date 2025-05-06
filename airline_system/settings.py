@@ -3,11 +3,11 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
-CSRF_TRUSTED_ORIGINS = ['https://'+os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-DEBUG = True
-SECRET_KEY = os.environ.get('SECRET_KEY')
+ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -25,14 +25,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'flights.middleware.PromoCodeMiddleware'
+    'flights.middleware.PromoCodeMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -55,15 +54,12 @@ CORS_ALLOW_HEADERS = [
     "accept",
 ]
 
-CORS_ALLOW_CREDENTIALS = True
-
 ROOT_URLCONF = 'airline_system.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -110,11 +106,7 @@ REST_FRAMEWORK = {
 }
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 STATIC_URL = '/static/'
@@ -125,6 +117,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
-
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'

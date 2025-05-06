@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-%jo$opw!p@66xwfvbe=xp^k=15f2%og(%1lfis%970blq4h*ht
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["airline-frontend-2-rn2knh4af-ilyasnartays-projects.vercel.app", "localhost", "127.0.0.1"]
+
 
 
 # Application definition
@@ -62,6 +63,25 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
+# Разрешить методы
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "OPTIONS"
+]
+
+# Разрешить заголовки
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+    "accept",
+]
+
+# Включение поддержки cookies
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'airline_system.urls'
@@ -142,11 +162,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-ALLOWED_HOSTS = ["airline-frontend-2-rn2knh4af-ilyasnartays-projects.vercel.app", "localhost", "127.0.0.1"]
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -158,4 +173,3 @@ LOGIN_URL = 'login'       # The name of the login URL pattern (used by @login_re
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')

@@ -3,9 +3,11 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True
-
 ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+CSRF_TRUSTED_ORIGINS = ['https://'+os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+
+DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,7 +37,6 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://airline-frontend-2.vercel.app",
-    "http://localhost:5173",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

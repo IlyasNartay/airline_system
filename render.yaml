@@ -1,11 +1,9 @@
 services:
   - type: web
-    name: airline-system
-    env: python
+    name: airline-backend
+    env: docker
     plan: free
+    branch: main
+    dockerfilePath: ./Dockerfile
     buildCommand: ""
-    envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: airline_system.settings
-      - key: SECRET_KEY
-        value: your-secret-key
+    startCommand: bash -c "python manage.py migrate && gunicorn airline_system.wsgi:application --bind 0.0.0.0:$PORT"

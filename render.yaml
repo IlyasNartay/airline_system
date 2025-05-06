@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: airline-system
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: gunicorn airline_system.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: airline_system.settings
+      - key: SECRET_KEY
+        value: your-secret-key

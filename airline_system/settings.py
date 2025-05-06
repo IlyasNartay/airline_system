@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'flights.middleware.PromoCodeMiddleware'
+    'flights.middleware.PromoCodeMiddleware'
 ]
 
 CORS_ALLOWED_ORIGINS = [

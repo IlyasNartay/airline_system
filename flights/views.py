@@ -1,4 +1,4 @@
-from rest_framework import status, generics
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -11,6 +11,8 @@ from .serializers import (
     BookingSerializer, BookingManageSerializer,
 )
 
+def test_api(request):
+    return Response({"message": "API работает!"})
 # Register API
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -19,6 +21,8 @@ class RegisterAPIView(APIView):
             serializer.save()
             return Response({"message": "Registration successful."}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 # List all airports and flights

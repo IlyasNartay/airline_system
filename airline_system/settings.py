@@ -59,6 +59,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://airline-frontend-2-rn2knh4af-ilyasnartays-projects.vercel.app",
+    "http://localhost:5173",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -141,7 +142,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-ALLOWED_HOSTS = ['https://airline-system-pbjy.onrender.com/']
+ALLOWED_HOSTS = ["airline-frontend-2-rn2knh4af-ilyasnartays-projects.vercel.app", "localhost", "127.0.0.1"]
 
 
 # Default primary key field type

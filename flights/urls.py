@@ -8,9 +8,6 @@ from .views import test_api
 app_name = 'flights'
 urlpatterns = [
     path('api/', include([
-
-    path('/test/', test_api),
-
     path('api-token-auth/', obtain_auth_token),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', views.RegisterAPIView.as_view(), name='register'),

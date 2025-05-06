@@ -10,9 +10,6 @@ from .serializers import (
     RegisterSerializer, AirportSerializer, FlightSerializer,
     BookingSerializer, BookingManageSerializer,
 )
-
-def test_api(request):
-    return Response({"message": "API работает!"})
 # Register API
 class RegisterAPIView(APIView):
     def post(self, request):

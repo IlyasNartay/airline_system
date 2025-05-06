@@ -1,6 +1,18 @@
 from pathlib import Path
 import os
 
+DEBUG = False
+
+ALLOWED_HOSTS = [
+    "airline-system-pbjy.onrender.com",
+    "localhost",
+    "127.0.0.1"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://airline-system-pbjy.onrender.com"
+]
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')

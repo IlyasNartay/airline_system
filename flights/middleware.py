@@ -16,8 +16,6 @@ class PromoCodeMiddleware:
         if promo_code and isinstance(response, Response):
             if isinstance(response.data, dict):
                 response.data['promo_code'] = promo_code
-                response._is_rendered = False
-                response.render()
                 response.set_cookie('new_user', 'false', max_age=30 * 24 * 60 * 60)
 
         return response

@@ -58,7 +58,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://airline-frontend-2-rn2knh4af-ilyasnartays-projects.vercel.app/",
+    "https://airline-frontend-2-rn2knh4af-ilyasnartays-projects.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

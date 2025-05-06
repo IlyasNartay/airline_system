@@ -3,8 +3,6 @@ from django.urls import path, include
 from . import views
 from rest_framework.authtoken.views import obtain_auth_token
 
-from .views import test_api
-
 app_name = 'flights'
 urlpatterns = [
     path('api/', include([

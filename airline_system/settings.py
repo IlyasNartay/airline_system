@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["airline-frontend-2-rn2knh4af-ilyasnartays-projects.vercel.app", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["https://airline-frontend-2.vercel.app", "localhost", "127.0.0.1"]
 
 
 

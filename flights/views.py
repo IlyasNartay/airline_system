@@ -116,6 +116,7 @@ class AirportDetailAPIView(APIView):
 
 
 class ProfileAPIView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         user = request.user
         bookings = user.bookings.all()

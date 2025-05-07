@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["https://airline-system-pbjy.onrender.com"]
+ALLOWED_HOSTS = ["airline-system-pbjy.onrender.com"]
 
 
 
@@ -79,9 +79,6 @@ CORS_ALLOW_HEADERS = [
     "content-type",
     "accept",
 ]
-
-# Включение поддержки cookies
-CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'airline_system.urls'
 
@@ -171,4 +168,3 @@ LOGOUT_REDIRECT_URL = '/' # Or '/goodbye/', or wherever users should go after lo
 LOGIN_URL = 'login'       # The name of the login URL pattern (used by @login_required)
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'

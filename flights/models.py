@@ -1,5 +1,7 @@
 import string
 import random
+
+from django.contrib.auth.models import User
 from django.db import models
 
 class Airport(models.Model):
@@ -39,6 +41,7 @@ def generate_booking_code():
             return code
 
 class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     booking_code = models.CharField(max_length=6, unique=True, editable=False, default=generate_booking_code)

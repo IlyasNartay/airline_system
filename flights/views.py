@@ -58,6 +58,7 @@ class BookFlightAPIView(APIView):
         flight_id = request.data.get('flight_id')
         name = request.data.get('name')
         email = request.data.get('email')
+        user = request.user
         print(request)
         try:
             flight = Flight.objects.get(id=flight_id)
@@ -72,7 +73,7 @@ class BookFlightAPIView(APIView):
             defaults={'name': name}
         )
 
-        booking = Booking.objects.create(passenger=passenger, flight=flight)
+        booking = Booking.objects.create(user = user,passenger=passenger, flight=flight)
 
         serializer = BookingSerializer(booking)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -119,7 +120,7 @@ class ProfileAPIView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         user = request.user
-        bookings = user.bookings.all()
+        bookings = Booking.objects.filter(user=user)
         return Response({
             'bookings': BookingSerializer(bookings, many=True).data,
             'user' : UserSerializer(user, many=True).data

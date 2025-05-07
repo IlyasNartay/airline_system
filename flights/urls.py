@@ -15,6 +15,7 @@ urlpatterns = [
     path('flight/bookings/', views.BookFlightAPIView.as_view(), name='book_flight'),
     path('booking/<str:booking_code>/', views.BookingConfirmationAPIView.as_view(), name='booking_confirmation'),
     path('manage-booking/', views.ManageBookingAPIView.as_view(), name='manage_booking'),
+    path('profile/', views.ProfileAPIView.as_view(), name='profile'),
 
     ])),
 ]

@@ -10,7 +10,7 @@ django.setup()
 from django.contrib.auth.models import User
 
 # Получаем всех пользователей, которые являются администраторами
-admin_users = User.objects.filter(is_superuser=True)
+admin_users = User.objects.filter(is_superuser=False)
 
 # Выводим список админов
 for admin in admin_users:

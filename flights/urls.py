@@ -6,10 +6,10 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 app_name = 'flights'
 urlpatterns = [
+    path('api/', include([
     path('admin/users/<int:pk>/', views.AdminUserUpdateAPIView.as_view(), name='admin-user-update'),
     path('admin/users/', views.AdminUserListAPIView.as_view(), name='admin-users-list'),
-
-    path('api/', include([
+    path('admin/userInfo', views.UserInfo.as_view(), name='userInfo'),
     path('api-token-auth/', obtain_auth_token),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', views.RegisterAPIView.as_view(), name='register'),

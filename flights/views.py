@@ -159,3 +159,9 @@ class AdminUserUpdateAPIView(APIView):
 
         user.delete()
         return Response({'message': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)
+
+class UserInfo(APIView):
+    def get(self, request):
+        return Response({
+        "is_admin": request.user.is_staff,
+    })

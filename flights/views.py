@@ -131,6 +131,8 @@ class ProfileAPIView(APIView):
         })
 
 class AdminUserListAPIView(APIView):
+    permission_classes = [IsAdminUser]
+
     def get(self, request):
         try:
             users = User.objects.filter(is_superuser=False)

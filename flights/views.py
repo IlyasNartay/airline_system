@@ -134,10 +134,8 @@ class AdminUserListAPIView(APIView):
     permission_classes = [IsAdminUser]
     def get(self, request):
         users = User.objects.filter(is_superuser=False)
-        return Response({users : {
-            'username' : request.user.username,
-            'email' : request.user.email,
-        }})
+        print(users)
+        return Response({users : str(users)})
 
 class AdminUserUpdateAPIView(APIView):
     permission_classes = [IsAdminUser]

@@ -133,7 +133,7 @@ class ProfileAPIView(APIView):
 class AdminUserListAPIView(APIView):
     permission_classes = [IsAdminUser]
     def get(self, request):
-        users = User.objects.all()
+        users = User.objects.filter(is_superuser=False)
         return Response({users : UserSerializer(users, many=True).data})
 
 class AdminUserUpdateAPIView(APIView):

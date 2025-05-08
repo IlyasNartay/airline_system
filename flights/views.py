@@ -1,5 +1,6 @@
+from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -8,7 +9,7 @@ from django.db.models import Count
 from .models import Airport, Flight, Booking, Passenger
 from .serializers import (
     RegisterSerializer, AirportSerializer, FlightSerializer,
-    BookingSerializer, BookingManageSerializer,
+    BookingSerializer, BookingManageSerializer, UserSerializer,
 )
 # Register API
 class RegisterAPIView(APIView):
@@ -128,3 +129,33 @@ class ProfileAPIView(APIView):
                 'email' : user.email,
             }
         })
+
+class AdminUserListAPIView(APIView):
+    permission_classes = [IsAdminUser]
+    def get(self, request):
+        users = User.objects.all()
+        return Response({users : UserSerializer(users, many=True).data})
+
+class AdminUserUpdateAPIView(APIView):
+    permission_classes = [IsAdminUser]
+
+    def put(self, request, pk):
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        user.delete()
+        return Response({'message': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)

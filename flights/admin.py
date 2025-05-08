@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Passenger, Airport, Flight, Booking
+from django.contrib.auth.models import User
+from .models import Booking, Passenger
 
-@admin.register(Booking)
-class BookingAdmin(admin.ModelAdmin):
-    list_display = ('booking_code', 'passenger', 'flight', 'created_at')
-    search_fields = ('booking_code', 'passenger__name')
-    list_filter = ('flight', 'created_at')
+class BookingInline(admin.TabularInline):
+    model = Booking
+    extra = 0
 
-admin.site.register(Passenger)
-admin.site.register(Airport)
-admin.site.register(Flight)
+class PassengerAdmin(admin.ModelAdmin):
+    inlines = [BookingInline]
+
+admin.site.register(Passenger, PassengerAdmin)

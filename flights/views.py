@@ -136,11 +136,20 @@ class AdminUserListAPIView(APIView):
     def get(self, request):
         try:
             users = User.objects.filter(is_superuser=False)
-            serialized_users = UserSerializer(users, many=True)
-            return Response({'users': serialized_users.data}, status=status.HTTP_200_OK)
+            user_data = []
+
+            for user in users:
+                bookings = Booking.objects.filter(user=user)
+                serialized_bookings = BookingSerializer(bookings, many=True).data
+                serialized_user = UserSerializer(user).data
+                user_data.append({
+                    "user": serialized_user,
+                    "bookings": serialized_bookings
+                })
+
+            return Response({'data': user_data}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 class AdminUserUpdateAPIView(APIView):
     permission_classes = [IsAdminUser]
 

@@ -8,7 +8,7 @@ from django.db.models import Count
 from .models import Airport, Flight, Booking, Passenger
 from .serializers import (
     RegisterSerializer, AirportSerializer, FlightSerializer,
-    BookingSerializer, BookingManageSerializer, UserSerializer,
+    BookingSerializer, BookingManageSerializer,
 )
 # Register API
 class RegisterAPIView(APIView):
@@ -123,5 +123,8 @@ class ProfileAPIView(APIView):
         bookings = Booking.objects.filter(user=user)
         return Response({
             'bookings': BookingSerializer(bookings, many=True).data,
-            'user' : UserSerializer(user, many=True).data
+            'user' : {
+                'username' : user.username,
+                'email' : user.email,
+            }
         })

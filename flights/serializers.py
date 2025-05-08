@@ -61,3 +61,8 @@ class BookingManageSerializer(serializers.Serializer):
         if not Booking.objects.filter(booking_code=value).exists():
             raise serializers.ValidationError("Booking not found.")
         return value
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'

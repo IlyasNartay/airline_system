@@ -9,7 +9,7 @@ from django.db.models import Count
 from .models import Airport, Flight, Booking, Passenger
 from .serializers import (
     RegisterSerializer, AirportSerializer, FlightSerializer,
-    BookingSerializer, BookingManageSerializer,
+    BookingSerializer, BookingManageSerializer, UserSerializer,
 )
 # Register API
 class RegisterAPIView(APIView):
@@ -133,9 +133,8 @@ class ProfileAPIView(APIView):
 class AdminUserListAPIView(APIView):
     permission_classes = [IsAdminUser]
     def get(self, request):
-        users = User.objects.filter(is_superuser=False)
-        print(users)
-        return Response({users :  str(users)})
+        users = User.objects.all()
+        return Response({users : UserSerializer(users, many=True).data})
 
 class AdminUserUpdateAPIView(APIView):
     permission_classes = [IsAdminUser]
@@ -143,14 +142,14 @@ class AdminUserUpdateAPIView(APIView):
     def put(self, request, pk):
         try:
             user = User.objects.get(pk=pk)
-            return Response({
-                'user': {
-                    'username': user.username,
-                    'email': user.email,
-                }
-            })
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         try:
@@ -163,6 +162,4 @@ class AdminUserUpdateAPIView(APIView):
 
 class UserInfo(APIView):
     def get(self, request):
-        return Response({
-        "is_admin": request.user.is_staff,
-    })
+        return Response({'users' : UserSerializer(request.user).data})

@@ -1,5 +1,7 @@
 import random
 import string
+from http.client import responses
+
 
 class PromoCodeMiddleware:
     def __init__(self, get_response):
@@ -9,8 +11,8 @@ class PromoCodeMiddleware:
 
         is_new_user = request.COOKIES.get('new_user', 'true') == 'true'
         promo_code = self.generate_promo_code() if is_new_user else None
-
         response = self.get_response(request)
+        if is_new_user:return response
 
         # Проверяем, есть ли у ответа .data и можно ли модифицировать
         if promo_code and hasattr(response, 'data') and isinstance(response.data, dict):

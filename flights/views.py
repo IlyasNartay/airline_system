@@ -9,7 +9,7 @@ from django.db.models import Count
 from .models import Airport, Flight, Booking, Passenger
 from .serializers import (
     RegisterSerializer, AirportSerializer, FlightSerializer,
-    BookingSerializer, BookingManageSerializer, UserSerializer,
+    BookingSerializer, BookingManageSerializer,
 )
 # Register API
 class RegisterAPIView(APIView):
@@ -134,7 +134,10 @@ class AdminUserListAPIView(APIView):
     permission_classes = [IsAdminUser]
     def get(self, request):
         users = User.objects.filter(is_superuser=False)
-        return Response({users : UserSerializer(users, many=True).data})
+        return Response({users : {
+            'username' : request.user.username,
+            'email' : request.user.email,
+        }})
 
 class AdminUserUpdateAPIView(APIView):
     permission_classes = [IsAdminUser]

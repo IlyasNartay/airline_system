@@ -14,4 +14,4 @@ admin_users = User.objects.filter(is_superuser=False)
 
 # Выводим список админов
 for admin in admin_users:
-    print(admin.username, admin.email)
+    print(admin.email)

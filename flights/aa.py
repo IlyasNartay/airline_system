@@ -12,6 +12,6 @@ django.setup()
 from django.contrib.auth.models import User
 from flights.serializers import UserSerializer
 
-users = User.objects.filter(is_superuser=False)
+users = User.objects.filter(is_staff=True)
 a = UserSerializer(users, many=True, context={'request': None}).data
 pprint(a[0])

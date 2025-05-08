@@ -131,10 +131,13 @@ class ProfileAPIView(APIView):
         })
 
 class AdminUserListAPIView(APIView):
-    permission_classes = [IsAdminUser]
     def get(self, request):
-        users = User.objects.filter(is_superuser=False)
-        return Response({users : UserSerializer(users, many=True).data})
+        try:
+            users = User.objects.filter(is_superuser=False)
+            serialized_users = UserSerializer(users, many=True)
+            return Response({'users': serialized_users.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class AdminUserUpdateAPIView(APIView):
     permission_classes = [IsAdminUser]

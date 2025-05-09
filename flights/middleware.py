@@ -1,6 +1,5 @@
 import random
 import string
-from http.client import responses
 
 
 class PromoCodeMiddleware:

@@ -152,13 +152,6 @@ class AdminUserListAPIView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 class AdminUserUpdateAPIView(APIView):
     permission_classes = [IsAdminUser]
-    def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Registration successful."}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
     def put(self, request, pk):
         try:
@@ -181,6 +174,16 @@ class AdminUserUpdateAPIView(APIView):
         user.delete()
         return Response({'message': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)
 
-class UserInfo(APIView):
+class AddUserAPIView(APIView):
+    permission_classes = [IsAdminUser]
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Registration successful."}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserInfoAPIView(APIView):
     def get(self, request):
         return Response({'users' : UserSerializer(request.user).data})
